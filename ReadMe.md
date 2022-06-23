@@ -43,6 +43,8 @@ Running Seq locally with Docker:
 - [Getting A Local Seq Instance Up And Running](https://www.jabbermouth.co.uk/2021/01/26/getting-a-local-seq-instance-up-and-running/)
 - [Running Seq in a Docker container](https://docs.datalust.co/docs/getting-started-with-docker#running-seq-in-a-docker-container)
 
+From first link above:
+
 	mkdir D:\SeqData
 	docker run -e ACCEPT_EULA=Y --name seq -d --restart always -p 8090:80 -p 5341:5341 -v D:/SeqData:/data datalust/seq:latest
 
