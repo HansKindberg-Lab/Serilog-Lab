@@ -55,7 +55,34 @@ In my case I do it like this:
 
 Url: http://localhost:56789
 
-## 4 Configuration example for forwarded headers
+## 4 Elasticsearch & Fluentd
+
+I use secrets to laborate with configuration for Elasticsearch and Fluentd. Those systems are setup at my work and the configuration for them is confidential.
+
+Path to your secrets file for this solution: C:\Users\{USERNAME}\AppData\Roaming\Microsoft\UserSecrets\8fb36c14-a5cc-429a-87d1-d782ef9b3eb8\secrets.json
+
+In the secrets file you can start to configure something like this:
+
+	{
+		"Serilog": {
+			"WriteTo": [
+				{
+					"Name": "Elasticsearch",
+					"Args": {
+						"?": "*"
+					}
+				},
+				{
+					"Name": "Fluentd",
+					"Args": {
+						"?": "*"
+					}
+				}
+			]
+		}
+	}
+
+## 5 Configuration example for forwarded headers
 
 	{
 		"ForwardedHeaders": {
@@ -63,6 +90,6 @@ Url: http://localhost:56789
 		}
 	}
 
-## 5 Links
+## 6 Links
 
 - [Bootstrap logging with Serilog + ASP.NET Core](https://nblumhardt.com/2020/10/bootstrap-logger/)
