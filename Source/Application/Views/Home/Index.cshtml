@@ -1,0 +1,16 @@
+@model HomeViewModel
+<div class="card mb-3">
+	<div class="card-header">
+		<h1 class="h4 m-0 p-0">Serilog-Lab</h1>
+	</div>
+	<div class="card-body">
+		<partial name="ValidationSummary" />
+		@if(Model.Confirmation)
+		{
+			<div class="alert alert-success">
+				Message logged.
+			</div>
+		}
+		<partial for="Form" name="Form" />
+	</div>
+</div>

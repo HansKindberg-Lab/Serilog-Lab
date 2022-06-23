@@ -1,0 +1,14 @@
+@model Form
+<form method="post">
+	<div class="mb-3">
+		<label asp-for="Level">Level</label>
+		<select asp-for="Level" asp-items="@Model.Levels" class="form-control"></select>
+	</div>
+	<div class="mb-3">
+		<label asp-for="Message">Message</label>
+		<input asp-for="Message" autofocus="autofocus" class="form-control" placeholder="Enter a log-message." />
+	</div>
+	<div class="mb-3 text-end">
+		<button class="btn btn-primary" type="submit">Log</button>
+	</div>
+</form>
