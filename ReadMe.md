@@ -55,9 +55,22 @@ In my case I do it like this:
 
 Url: http://localhost:56789
 
-## 4 Elasticsearch & Fluentd
+## 4 Fluentd
 
-I use secrets to laborate with configuration for Elasticsearch and Fluentd. Those systems are setup at my work and the configuration for them is confidential.
+- [A Serilog sink sending log events over HTTP.](https://github.com/FantasticFiasco/serilog-sinks-http)
+- [Sample application of Serilog.Sinks.Http sending log events to Fluentd.](https://github.com/FantasticFiasco/serilog-sinks-http-sample-fluentd)
+- https://github.com/FantasticFiasco/serilog-sinks-http-sample-fluentd/blob/master/serilog/Program.cs#L13
+
+In my case Fluentd sends logs to Elasticsearch therefore we need to format the logs for it:
+
+	Serilog.Formatting.Elasticsearch.ElasticsearchJsonFormatter, Serilog.Formatting.Elasticsearch
+
+NuGet-references needed:
+
+- Serilog.Formatting.Elasticsearch
+- Serilog.Sinks.Http
+
+I use secrets to laborate with configuration for Fluentd. Fluentd is setup at my work and the configuration for it is confidential.
 
 Path to your secrets file for this solution: C:\Users\{USERNAME}\AppData\Roaming\Microsoft\UserSecrets\8fb36c14-a5cc-429a-87d1-d782ef9b3eb8\secrets.json
 
@@ -65,20 +78,16 @@ In the secrets file you can start to configure something like this:
 
 	{
 		"Serilog": {
-			"WriteTo": [
-				{
-					"Name": "Elasticsearch",
+			"WriteTo": {
+				"Fluentd": {
+					"Name": "Http",
 					"Args": {
-						"?": "*"
-					}
-				},
-				{
-					"Name": "Fluentd",
-					"Args": {
-						"?": "*"
+						"queueLimitBytes": null,
+						"requestUri": "http://fluentd.example.org:9880/example.tag",
+						"textFormatter": "Serilog.Formatting.Elasticsearch.ElasticsearchJsonFormatter, Serilog.Formatting.Elasticsearch"
 					}
 				}
-			]
+			}
 		}
 	}
 
@@ -93,3 +102,4 @@ In the secrets file you can start to configure something like this:
 ## 6 Links
 
 - [Bootstrap logging with Serilog + ASP.NET Core](https://nblumhardt.com/2020/10/bootstrap-logger/)
+- [Writing logs to Elasticsearch with Fluentd using Serilog in ASP.NET Core](https://andrewlock.net/writing-logs-to-elasticsearch-with-fluentd-using-serilog-in-asp-net-core/)
